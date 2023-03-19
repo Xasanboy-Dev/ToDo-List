@@ -1,0 +1,7 @@
+@url=http://localhost:8080/todo
+
+GET {{url}}
+
+###
+GET {{url}}/1
+Authorization: 

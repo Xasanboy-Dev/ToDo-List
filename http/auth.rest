@@ -1,0 +1,21 @@
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiWGFzYW5ib3kiLCJzdXJuYW1lIjoiQWJkdXJhc3Vsb3YiLCJwaG9uZU51bWJlciI6Iis5MTk5Mjg0NzMiLCJpZCI6MSwiaWF0IjoxNjc5MjExMjAyfQ.NEXlhkdOqwUEGSYwgkpVf6dUVwxXZy5oY-uzm6yMDBE
+@url=http://localhost:8080/auth
+
+###
+POST {{url}}/login
+Content-Type: application/json
+
+{
+    "phoneNumber":"+995454545"
+}
+
+###
+POST {{url}}/register
+Content-Type: application/json
+
+{
+    "country":"Uzbekistan",
+    "name":"Xadicha",
+    "number": "+995454545",
+    "surname":"Abdurasulova"    
+}
