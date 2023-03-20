@@ -13,7 +13,7 @@ export async function postLogin(req: Request, res: Response) {
       } else {
         return res
           .status(404)
-          .json({ message: "User not fouund! Please try again later!" });
+          .json({ message: "User not found! Please try again later!" });
       }
     } else {
       return res
@@ -28,7 +28,7 @@ export async function postLogin(req: Request, res: Response) {
 
 export async function Register(req: Request, res: Response) {
   try {
-    const { country, name, number: phoneNumber, surname } = req.body;
+    const { country, name, phoneNumber, surname } = req.body;
     if (country && name && surname && name && phoneNumber) {
       const checkUserExist = await findUserByPhoneNumber(phoneNumber);
       if (!checkUserExist) {
