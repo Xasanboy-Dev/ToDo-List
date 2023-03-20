@@ -18,6 +18,7 @@ model user {
   country     String
   todos       Int[]
   savedTodos  Int[]
+  password    String
 }
 
 model todos {

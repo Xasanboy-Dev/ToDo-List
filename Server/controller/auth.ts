@@ -4,10 +4,13 @@ import { createUser, findUserByPhoneNumber } from "../database/user";
 
 export async function postLogin(req: Request, res: Response) {
   try {
-    const { phoneNumber } = req.body;
+    const { phoneNumber, password } = req.body;
     if (phoneNumber) {
       const user = await findUserByPhoneNumber(phoneNumber);
-      if (user) {
+      if (user && password) {
+        if (user.password !== password) {
+          return res.status(400).json({ mesage: "Please enter correct dara!" });
+        }
         const token = Sign(user.name, user.surname, user.phoneNumber, user.id);
         return res.status(200).json({ message: "Hello " + user.name, token });
       } else {
@@ -28,11 +31,17 @@ export async function postLogin(req: Request, res: Response) {
 
 export async function Register(req: Request, res: Response) {
   try {
-    const { country, name, phoneNumber, surname } = req.body;
-    if (country && name && surname && name && phoneNumber) {
+    const { country, name, phoneNumber, surname, password } = req.body;
+    if (country && name && surname && phoneNumber && password) {
       const checkUserExist = await findUserByPhoneNumber(phoneNumber);
       if (!checkUserExist) {
-        const user = await createUser(country, name, phoneNumber, surname);
+        const user = await createUser(
+          country,
+          name,
+          phoneNumber,
+          surname,
+          password
+        );
         return res
           .status(201)
           .json({ message: "Registered succesfully!", user });

@@ -53,7 +53,8 @@ export async function createUser(
   country: string,
   name: string,
   phoneNumber: string,
-  surname: string
+  surname: string,
+  password: string
 ) {
   return await prisma.user.create({
     data: {
@@ -61,6 +62,7 @@ export async function createUser(
       name,
       phoneNumber,
       surname,
+      password,
     },
   });
 }

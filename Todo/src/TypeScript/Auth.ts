@@ -1,19 +1,26 @@
 import axios from "axios";
-import e from "cors";
-export async function LoginAuth(telNumber: string) {
+export async function LoginAuth(telNumber: string, password: string) {
   try {
     let num = Number(telNumber).toString();
-    if (num == "NaN" || num == "0") {
+    if (telNumber.length !== 12) {
+      alert("Please enter correct data!");
+      return;
+    }
+    if (num == "NaN" || num == "0" || !password) {
       alert("Please eneter correct number!");
       return;
     } else {
       const result = await axios.post(`http://localhost:8080/auth/login`, {
         phoneNumber: num,
+        password,
       });
-      console.log(result.data);
+      let token = result.data.token;
+      localStorage.setItem("hello", token);
+      return (window.location.href = "/");
     }
   } catch (error: any) {
     alert(error.response.data.message);
+    return;
   }
 }
 
@@ -41,6 +48,7 @@ export async function RegisterAuth(
               phoneNumber,
               surname: lastname,
               country,
+              password,
             }
           );
           alert(result.data.message);
