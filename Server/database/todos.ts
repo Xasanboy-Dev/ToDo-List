@@ -58,3 +58,11 @@ export async function deleteTodo(todoId: number, userIdsForSaved: number[]) {
   }
   return await prisma.todos.delete({ where: { id: todoId } });
 }
+
+export async function findByTitle(title: string) {
+  return await prisma.todos.findMany({
+    where: {
+      title: { contains: title },
+    },
+  });
+}

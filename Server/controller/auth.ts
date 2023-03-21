@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Sign } from "../database/token";
+import { Sign, Verify } from "../database/token";
 import { createUser, findUserByPhoneNumber } from "../database/user";
 
 export async function postLogin(req: Request, res: Response) {
@@ -54,5 +54,16 @@ export async function Register(req: Request, res: Response) {
   } catch (error: any) {
     console.log(error.mesage);
     res.status(500).json({ message: "Internal error" });
+  }
+}
+
+export async function checkTokenValid(req: Request, res: Response) {
+  try {
+    const { token } = req.body;
+    const ValidToken = Verify(token!);
+    res.status(200).json({ message: "Token", token: ValidToken });
+  } catch (error: any) {
+    console.log(error.message);
+    res.status(500).json({ messsage: "Internal error" });
   }
 }

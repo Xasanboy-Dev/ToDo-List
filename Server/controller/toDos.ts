@@ -3,6 +3,7 @@ import {
   addTodo,
   deleteTodo,
   findAllTodos,
+  findByTitle,
   findTodoByID,
   findTodosForByUserId,
   updateTodo,
@@ -73,10 +74,12 @@ export async function createTodo(req: Request, res: Response) {
           ValidateToken.name,
           ValidateToken.id,
           text,
-          createdDate ? createdDate : "",
+          createdDate ? createdDate : new Date(),
           title
         );
-        return res.status(201).json({ message: "Todo added succesfully!" });
+        return res
+          .status(201)
+          .json({ message: "Todo added succesfully!", todo: addedTodo });
       }
     } else {
       return res.status(404).json({ message: "You must to Login!" });
@@ -131,6 +134,23 @@ export async function removeTodo(req: Request, res: Response) {
     }
   } catch (error: any) {
     console.log(error.mesage);
+    res.status(500).json({ message: "Internal error" });
+  }
+}
+
+export async function getSearchingTodos(req: Request, res: Response) {
+  try {
+    const search = req.headers.authorization;
+    if (!search) {
+      return await findAllTodos();
+    } else {
+      const result = await findByTitle(search!);
+      res
+        .status(200)
+        .json({ message: "All your serarhed todos", todos: result });
+    }
+  } catch (error: any) {
+    console.log(error.message);
     res.status(500).json({ message: "Internal error" });
   }
 }

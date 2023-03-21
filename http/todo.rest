@@ -4,4 +4,13 @@ GET {{url}}
 
 ###
 GET {{url}}/1
-Authorization: 
+
+###
+POST {{url}}
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoi0KXQsNGB0LDQvdCx0L7QuSIsInN1cm5hbWUiOiLQkNCx0LTRg9GA0LDRgdGD0LvQvtCyIiwicGhvbmVOdW1iZXIiOiI5OTg5OTE0NTg0NzMiLCJpZCI6MiwiaWF0IjoxNjc5MzU4MjA5fQ.qosUxoV-tna5CfBfaieWQ_qmtEaD7pgR69rVTkSTj_8
+
+{
+    "text":"Hello",
+     "title" :"Very nice!"
+}

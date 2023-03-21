@@ -15,6 +15,7 @@ export async function LoginAuth(telNumber: string, password: string) {
         password,
       });
       let token = result.data.token;
+      console.log(token);
       localStorage.setItem("hello", token);
       return (window.location.href = "/");
     }
@@ -66,5 +67,22 @@ export async function RegisterAuth(
   } catch (error: any) {
     alert(error.response.data.message);
     return;
+  }
+}
+
+export function checkTokenValid(token: string) {
+  if (!token) {
+    return false;
+  } else {
+    const result = axios.post(`http://localhost:8080/auth/token`, { token });
+    result
+      .then((res) => {
+        if (res) {
+          return res.data.token;
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 }
