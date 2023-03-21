@@ -4,15 +4,14 @@ import Register from "./pages/Auth/Register"
 import IndexPage from './pages/Auth/IndexPage'
 import Layot from './pages/Header/Layout'
 import { useState } from 'react'
-
 import { todos } from "@prisma/client"
-
 function App() {
+  let [click, setClick] = useState<Boolean>()
   let [todos, setTodos] = useState<todos[]>()
   return (
     <Routes>
-      <Route path='/' element={<Layot setTodos={setTodos} />}>
-        <Route path='/' element={<IndexPage todos={todos! } />} />
+      <Route path='/' element={<Layot click={click!} setClick={setClick} setTodos={setTodos} />}>
+        <Route path='/' element={<IndexPage setClick={setClick} click={click!} />} />
       </Route>
       <Route path='/login' element={<Login />} />
       <Route path='/register' element={<Register />} />

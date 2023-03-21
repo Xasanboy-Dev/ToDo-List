@@ -11,7 +11,13 @@ export async function postLogin(req: Request, res: Response) {
         if (user.password !== password) {
           return res.status(400).json({ mesage: "Please enter correct dara!" });
         }
-        const token = Sign(user.name, user.surname, user.phoneNumber, user.id);
+        const token = Sign(
+          user.name,
+          user.surname,
+          user.phoneNumber,
+          user.ownerNames,
+          user.id
+        );
         return res.status(200).json({ message: "Hello " + user.name, token });
       } else {
         return res

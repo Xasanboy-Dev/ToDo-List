@@ -11,14 +11,15 @@ datasource db {
 }
 
 model user {
-  id          Int    @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   name        String
   surname     String
-  phoneNumber String @unique
+  phoneNumber String   @unique
   country     String
   todos       Int[]
   savedTodos  Int[]
   password    String
+  ownerNames  String[]
 }
 
 model todos {
@@ -29,14 +30,14 @@ model todos {
   createdDate DateTime  @default(now())
   deadTime    DateTime?
   title       String
-  When        Days @default(Saturdays)
+  When        Days      @default(Recently)
 }
 
 enum Days {
   Mondays
   Tuesdays
-  Wednasdays
-  Thurstdays
+  Wednesdays
+  Thursdays
   Fridays
   Saturdays
   Sundays

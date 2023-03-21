@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
+import { verify } from "jsonwebtoken";
 import { Verify } from "../database/token";
 import {
+  addname,
   findAllUsers,
   findUserById,
   removeUserById,
@@ -96,5 +98,42 @@ export async function deleteuserById(req: Request, res: Response) {
   } catch (error: any) {
     console.log(error.mesage);
     res.status(401).json({ message: "You must to Login!" });
+  }
+}
+
+export async function getUserByToken(req: Request, res: Response) {
+  try {
+    const token = req.headers.authorization;
+    if (token) {
+      const ValidoToken: any = Verify(token);
+      const user = await findUserById(ValidoToken.id);
+      return res
+        .status(200)
+        .json({ message: "User", token: ValidoToken, user });
+    } else {
+      return res.status(401).json({ message: "You must to login!" });
+    }
+  } catch (error: any) {
+    console.log(error.mesage);
+    res.status(500).json({ message: "Internal error" });
+  }
+}
+
+export async function createName(req: Request, res: Response) {
+  try {
+    const token = req.headers.authorization;
+    const { name } = req.body;
+    if (token && name) {
+      const ValidateToken: any = Verify(token);
+      const addedname = await addname(name, ValidateToken.id);
+      return res
+        .status(201)
+        .json({ message: "Name created succesfully!", names: addedname });
+    } else {
+      return res.status(401).json({ message: "Login please!" });
+    }
+  } catch (error: any) {
+    console.log(error.message);
+    res.status(500).json({ message: "Internal error" });
   }
 }

@@ -6,9 +6,10 @@ export function Sign(
   name: string,
   surname: string,
   phoneNumber: string,
+  ownerName: string[],
   id: number
 ) {
-  const payload = { name, surname, phoneNumber, id };
+  const payload = { ownerName, name, surname, phoneNumber, id };
   return jwt.sign(payload, secret!);
 }
 

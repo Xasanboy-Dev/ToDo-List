@@ -66,3 +66,18 @@ export async function createUser(
     },
   });
 }
+
+export async function addname(name: string, userId: number) {
+  const user = await prisma.user.findUnique({ where: { id: userId } });
+  let names: string[] = [];
+  if (user) {
+    names = user.ownerNames;
+  }
+  if (!names.includes(name)) {
+    names.push(name);
+  }
+  return await prisma.user.update({
+    where: { id: userId },
+    data: { ownerNames: names },
+  });
+}

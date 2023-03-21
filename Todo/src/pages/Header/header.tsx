@@ -1,16 +1,26 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { todos } from "@prisma/client"
-import { Searching } from "../../TypeScript/Index"
+import { getnameofClient, Searching } from "../../TypeScript/Index"
 
-export default function Header({ setTodos }: { setTodos: (todos: todos[]) => void }) {
+export default function Header({ setTodos, setClick }: { setTodos: (todos: todos[]) => any, setClick: (click: Boolean) => void }) {
     const token = localStorage.getItem("hello")
     let [text, setText] = useState("")
-    let [userExist, setUserExist] = useState(true)
+    let [userExist, setUserExist] = useState(Boolean)
+    useEffect(() => {
+        if (token) {
+            const result = getnameofClient(token)
+            result.then(res => {
+                setUserExist(true)
+            }).catch(err => {
+                setUserExist(false)
+            })
+        }
+    }, [])
     return (
         <div>
             <div className="flex justify-content-between py-2">
                 <div className="items-center flex gap-2 mx-5">
-                    <span><i className="text-3xl bi bi-house"></i></span>
+                    <a href="/"><i className="text-3xl bi bi-house"></i></a>
                     <div className="">
                         <form onSubmit={(e) => {
                             e.preventDefault()
@@ -32,7 +42,7 @@ export default function Header({ setTodos }: { setTodos: (todos: todos[]) => voi
                     <div
                         style={{ display: userExist ? "flex" : "none" }}
                         className="items-center flex gap-2 mx-5">
-                        <span className="cursor-pointer border px-2 bg-green-700 text-light text-2xl rounded-full border-dark">+</span>
+                        <span onClick={() => setClick(true)} className="cursor-pointer border px-2 bg-green-700 text-light text-2xl rounded-full border-dark">+</span>
                         <div className="border border-dark px-2 py-2 rounded cursor-pointer">
                             profile
                         </div>
