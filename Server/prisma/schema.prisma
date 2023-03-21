@@ -29,4 +29,19 @@ model todos {
   createdDate DateTime  @default(now())
   deadTime    DateTime?
   title       String
+  When        Days @default(Saturdays)
+}
+
+enum Days {
+  Mondays
+  Tuesdays
+  Wednasdays
+  Thurstdays
+  Fridays
+  Saturdays
+  Sundays
+  Recently
+  Never
+  Always
+  Sometimes
 }

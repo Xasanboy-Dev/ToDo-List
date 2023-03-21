@@ -21,3 +21,7 @@ export function onSelect(
     console.log([todo.id, select]);
   }
 }
+
+export async function getAllTodos() {
+  return await axios.get(`http://localhost:8080/todo`);
+}

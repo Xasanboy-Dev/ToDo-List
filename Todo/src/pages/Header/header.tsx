@@ -24,7 +24,7 @@ export default function Header({ setTodos }: { setTodos: (todos: todos[]) => voi
                                 onChange={(e) => { setText(e.target.value) }}
                                 className="border boder-dark p-2 rounded text-lg"
                                 placeholder="Search something..." />
-                            <button type="submit">Search</button>
+                            <button type="submit" className="p-2 border border-dark rounded mx-2">Search</button>
                         </form>
                     </div>
                 </div>
