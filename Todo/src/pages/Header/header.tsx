@@ -6,10 +6,12 @@ export default function Header({ setTodos, setClick }: { setTodos: (todos: todos
     const token = localStorage.getItem("hello")
     let [text, setText] = useState("")
     let [userExist, setUserExist] = useState(Boolean)
+    let [user, setUser] = useState<any>()
     useEffect(() => {
         if (token) {
             const result = getnameofClient(token)
             result.then(res => {
+                setUser(res!.user)
                 setUserExist(true)
             }).catch(err => {
                 setUserExist(false)
@@ -43,9 +45,9 @@ export default function Header({ setTodos, setClick }: { setTodos: (todos: todos
                         style={{ display: userExist ? "flex" : "none" }}
                         className="items-center flex gap-2 mx-5">
                         <span onClick={() => setClick(true)} className="cursor-pointer border px-2 bg-green-700 text-light text-2xl rounded-full border-dark">+</span>
-                        <div className="border border-dark px-2 py-2 rounded cursor-pointer">
-                            profile
-                        </div>
+                        <a href="/profile" className="border border-dark px-2 py-2 rounded cursor-pointer">
+                            <h1>{user?.name}</h1>
+                        </a>
                     </div>
                     <div
                         style={{ display: userExist ? "none" : "flex" }}

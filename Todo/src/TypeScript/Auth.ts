@@ -15,7 +15,6 @@ export async function LoginAuth(telNumber: string, password: string) {
         password,
       });
       let token = result.data.token;
-      console.log(token);
       localStorage.setItem("hello", token);
       return (window.location.href = "/");
     }

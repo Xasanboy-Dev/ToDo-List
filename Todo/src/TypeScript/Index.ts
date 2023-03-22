@@ -31,7 +31,7 @@ export async function getnameofClient(token: string) {
     const result = await axios.get("http://localhost:8080/user/token", {
       headers: { Authorization: token },
     });
-    return result.data.token;
+    return { token: result.data.token, user: result.data.user };
   }
 }
 
